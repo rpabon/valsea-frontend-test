@@ -8,7 +8,7 @@ const config: CodegenConfig = {
     "src/generated/graphql.ts": {
       plugins: [{
         typescript: {
-          noExport: true,
+          // noExport: true,
         },
       }, "typescript-operations"],
     },

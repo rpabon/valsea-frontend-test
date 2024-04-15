@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "ts:check": "tsc",
     "codegen": "DEBUG=1 graphql-code-generator",
-    "download-schema": "get-graphql-schema https://swapi-graphql.netlify.app/.netlify/functions/index > schema.graphql"
+    "download-schema": "get-graphql-schema https://swapi-graphql.netlify.app/.netlify/functions/index > schema.graphql",
+    "dev": "npm run download-schema && npm run codegen && vite"
   },
   "dependencies": {
     "graphql": "^16.6.0",
@@ -18,8 +18,9 @@
     "urql": "^3.0.3"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.7",
-    "@graphql-codegen/typescript-operations": "^2.5.4",
+    "@graphql-codegen/cli": "^2.16.5",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-operations": "^2.5.13",
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
