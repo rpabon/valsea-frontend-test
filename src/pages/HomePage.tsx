@@ -1,29 +1,23 @@
-import { gql, useQuery } from "urql";
+import { Link } from "react-router-dom";
+import { useQuery } from "urql";
 import { HomeQuery } from "../generated/graphql";
-import { PersonListItem } from "../components/Person";
-
-const query = gql`
-  query Home {
-    allPeople {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
+import query from "../queries/home.query";
 
 const HomePage = () => {
   const [result] = useQuery<HomeQuery>({ query });
-  const persons = result.data?.allPeople?.edges || [];
+  const edges = result.data?.allPeople?.edges || [];
 
   return (
     <ul>
-      {persons.map((edge) => {
-        if (!edge || !edge.node) return null;
-        return <PersonListItem key={edge.node.id} person={edge.node} />;
+      {edges.map((edge) => {
+        const person = edge?.node;
+        if (!person) return null;
+
+        return (
+          <li key={person.id}>
+            <Link to={`/person/${person.id}`}>{person.name}</Link>
+          </li>
+        );
       })}
     </ul>
   );
