@@ -5,6 +5,7 @@ export function getFilmList(person: PersonQuery["person"]): Film[] {
     person?.filmConnection?.edges
       ?.map((edge) => edge?.node)
       ?.map((film) => ({
+        id: film?.id || "",
         title: film?.title || "",
         releaseDate: formatDate(film?.releaseDate),
         numberOfDryPlanets:
@@ -28,6 +29,7 @@ function formatDate(dateString?: string | null): string {
 }
 
 interface Film {
+  id: string;
   title: string;
   releaseDate: string;
   numberOfDryPlanets: number;

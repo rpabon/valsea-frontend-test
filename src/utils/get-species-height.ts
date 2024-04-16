@@ -7,5 +7,5 @@ export function getSpeciesHeight(person: PersonQuery["person"]): string {
 
   const { name, averageHeight } = person.species;
   const height = (averageHeight / 100).toFixed(2);
-  return `The average height of the ${name} species is ${height}m`;
+  return `The average height of the ${name?.replace(" species", "")} species is ${height}m`;
 }

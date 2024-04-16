@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
-import { filterNull } from "../utils/filter-null";
-import { useHomeQuery } from "../hooks/useHomeQuery";
+import { Card } from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { filterNull } from "@/utils/filter-null";
+import { useHomeQuery } from "@/hooks/useHomeQuery";
 
 const HomePage = () => {
-  const { persons, loading, error } = useHomeQuery();
+  const { persons, loading } = useHomeQuery();
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
-    <ul>
+    <div className="flex flex-wrap justify-around gap-2 p-10">
       {persons.filter(filterNull).map((person) => (
-        <li key={person.id}>
-          <Link to={`/person/${person.id}`}>
+        <Link key={person.id} to={`/person/${person.id}`}>
+          <Card className="flex justify-center items-center text-center shadow-md hover:shadow-lg transition-shadow duration-200 ease-in m-4 p-4 w-40 h-32">
             {person.name || "Name not available"}
-          </Link>
-        </li>
+          </Card>
+        </Link>
       ))}
-    </ul>
+    </div>
   );
 };
 

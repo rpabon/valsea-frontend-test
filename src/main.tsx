@@ -5,6 +5,7 @@ import { createClient } from "urql";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PersonPage from "./pages/PersonPage";
 import HomePage from "./pages/HomePage";
+import "./globals.css";
 
 const client = createClient({
   url: "https://swapi-graphql.netlify.app/.netlify/functions/index",
@@ -26,5 +27,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Provider value={client}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

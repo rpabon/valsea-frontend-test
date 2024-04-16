@@ -14,6 +14,7 @@ export default gql`
       filmConnection {
         edges {
           node {
+            id
             title
             releaseDate
             producers
