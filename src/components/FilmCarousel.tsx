@@ -14,7 +14,7 @@ export function FilmCarousel(props: { films: ReturnType<typeof getFilmList> }) {
   return (
     <div className="p-4 text-center">
       <h2 className="text-xl font-bold mb-4">
-        {films.length} Film{films.length > 1 ? "s" : ""}:
+        Has appeared in {films.length} Film{films.length > 1 ? "s" : ""}:
       </h2>
       <Carousel className="w-full max-w-xs">
         <CarouselContent>
