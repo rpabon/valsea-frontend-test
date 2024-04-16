@@ -5,21 +5,25 @@ export default gql`
     person(id: $personId) {
       name
       birthYear
-    }
-    species(id: $personId) {
-      averageHeight
-    }
-    allFilms {
-      totalCount
-      edges {
-        node {
-          title
-          releaseDate
-          producers
-          planetConnection {
-            edges {
-              node {
-                surfaceWater
+
+      species {
+        name
+        averageHeight
+      }
+
+      filmConnection {
+        edges {
+          node {
+            title
+            releaseDate
+            producers
+
+            planetConnection {
+              edges {
+                node {
+                  name
+                  surfaceWater
+                }
               }
             }
           }

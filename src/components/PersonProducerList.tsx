@@ -1,46 +1,17 @@
-import { PersonQuery } from "../generated/graphql";
+import { type getProducerList } from "../utils/get-producer-list";
 
-export function PersonProducerList(props: PersonProducerListProps) {
-  const producers = getProducersArray(props.films);
-
+export function PersonProducerList(props: {
+  list: ReturnType<typeof getProducerList>;
+}) {
+  const { list: producerList } = props;
+  
   return (
     <ul>
-      {producers.map((producer) => (
-        <li key={producer.name}>
-          {producer.name} ({producer.times})
+      {producerList.map(({ name, times }) => (
+        <li key={name}>
+          {name} <small>({times})</small>
         </li>
       ))}
     </ul>
   );
-}
-
-function getProducersArray(films: PersonQuery["allFilms"]) {
-  return (
-    films?.edges
-      ?.map((edge) => edge?.node?.producers)
-      .flat()
-      .reduce((acc, producer) => {
-        if (producer) {
-          const existingProducer = acc.find((p) => p.name === producer);
-
-          if (existingProducer) {
-            existingProducer.times += 1;
-          } else {
-            acc.push({ name: producer, times: 1 });
-          }
-        }
-
-        return acc;
-      }, [] as Producer[])
-      .sort((a, b) => b.times - a.times) || []
-  );
-}
-
-interface PersonProducerListProps {
-  films: PersonQuery["allFilms"];
-}
-
-interface Producer {
-  name: string;
-  times: number;
 }

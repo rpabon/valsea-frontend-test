@@ -1,24 +1,19 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "urql";
-import { HomeQuery } from "../generated/graphql";
-import query from "../queries/home.query";
+import { filterNull } from "../utils/filter-null";
+import { useHomeQuery } from "../hooks/useHomeQuery";
 
 const HomePage = () => {
-  const [result] = useQuery<HomeQuery>({ query });
-  const edges = result.data?.allPeople?.edges || [];
+  const { persons, loading, error } = useHomeQuery();
 
   return (
     <ul>
-      {edges.map((edge) => {
-        const person = edge?.node;
-        if (!person) return null;
-
-        return (
-          <li key={person.id}>
-            <Link to={`/person/${person.id}`}>{person.name}</Link>
-          </li>
-        );
-      })}
+      {persons.filter(filterNull).map((person) => (
+        <li key={person.id}>
+          <Link to={`/person/${person.id}`}>
+            {person.name || "Name not available"}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 };

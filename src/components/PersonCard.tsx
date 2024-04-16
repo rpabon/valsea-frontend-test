@@ -1,11 +1,16 @@
-export function PersonCard(props: PersonCardProps): JSX.Element {
-    const {} = props;
+import { type getPersonDetails } from "../utils/get-person-details";
 
-    return (
-        <div></div>
-    );
-};
+export function PersonCard(
+  props: ReturnType<typeof getPersonDetails>
+): JSX.Element {
+  const { name, birthYear } = props;
 
-interface PersonCardProps {
-    
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>{birthYear}</p>
+    </div>
+  );
 }
+
+interface PersonCardProps {}
